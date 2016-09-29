@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity {
+    static final int LINE=1,RECT=2,CIRCLE=3;
+    int chooseShape=CIRCLE;
      DrawShape ds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +26,16 @@ public class MainActivity extends AppCompatActivity {
     public void drawShape(View v){
      switch(v.getId()){
          case R.id.but_line:
+             chooseShape=LINE;
              break;
          case R.id.but_rect:
+             chooseShape=RECT;
              break;
          case R.id.but_circle:
+             chooseShape=CIRCLE;
              break;
      }
+        ds.invalidate();//ondraw 다시 호출하는 방법!
     }
 
     class DrawShape extends View{
@@ -47,10 +53,23 @@ public class MainActivity extends AppCompatActivity {
                 paint.setColor(Color.BLUE);
                 paint.setStyle(Paint.Style.STROKE);//빈 원 모양!
 
-                canvas.drawCircle(cx,cy,200,paint);
-                paint.setColor(Color.GREEN);
-                paint.setStyle(Paint.Style.FILL);//채워진 사각형 모양!
-                canvas.drawRect(100,100,300,250,paint);
+                switch (chooseShape){
+                    case LINE:
+                        paint.setColor(Color.RED);
+                        canvas.drawLine(50,100,650,100,paint);
+                        break;
+                    case RECT:
+                        paint.setColor(Color.GREEN);
+                        paint.setStyle(Paint.Style.FILL);//채워진 사각형 모양!
+                        canvas.drawRect(100,100,300,250,paint);
+                        break;
+                    case CIRCLE:
+                        paint.setStrokeWidth(7);
+                        canvas.drawCircle(cx,cy,200,paint);
+                        break;
+                }
+
+
         }
     }
 }
