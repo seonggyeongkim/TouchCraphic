@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -13,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     static final int LINE=1,RECT=2,CIRCLE=3;
     int chooseShape=CIRCLE;
      DrawShape ds;
+    int startX,startY,stopX,stopY;
+    int r;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,19 +59,40 @@ public class MainActivity extends AppCompatActivity {
                 switch (chooseShape){
                     case LINE:
                         paint.setColor(Color.RED);
-                        canvas.drawLine(50,100,650,100,paint);
+                        canvas.drawLine(startX,startY,stopX,stopY,paint);
                         break;
                     case RECT:
                         paint.setColor(Color.GREEN);
                         paint.setStyle(Paint.Style.FILL);//채워진 사각형 모양!
-                        canvas.drawRect(100,100,300,250,paint);
+                        canvas.drawRect(startX,startY,stopX,stopY,paint);
                         break;
                     case CIRCLE:
+                        r=(int)Math.sqrt(Math.pow(stopX-startX,2)+ Math.pow(stopY-startY,2));
                         paint.setStrokeWidth(7);
-                        canvas.drawCircle(cx,cy,200,paint);
+                        canvas.drawCircle(startX,startY,r,paint);
                         break;
                 }
 
+
+        }
+
+        @Override
+        public boolean onTouchEvent(MotionEvent event) {
+            switch (event.getAction()){ //정수값을 반환 함!
+                case MotionEvent.ACTION_DOWN: //처음 시작
+                    startX=(int)event.getX();
+                    startY=(int)event.getY();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    break;
+                case MotionEvent.ACTION_UP://끝 지점
+                    stopX=(int)event.getX();
+                    stopY=(int)event.getY();
+                    break;
+
+            }
+            invalidate();
+            return true;
 
         }
     }
