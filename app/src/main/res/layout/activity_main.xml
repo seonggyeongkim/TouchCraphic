@@ -25,7 +25,8 @@
             android:layout_height="wrap_content"
             android:text="@string/str_butline"
             android:textAppearance="?android:textAppearanceLarge"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:onClick="drawShape"/>
 
         <Button
             android:id="@+id/but_rect"
@@ -33,7 +34,8 @@
             android:layout_height="wrap_content"
             android:text="@string/str_butrect"
             android:textAppearance="?android:textAppearanceLarge"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:onClick="drawShape"/>
 
         <Button
             android:id="@+id/but_circle"
@@ -41,10 +43,8 @@
             android:layout_height="wrap_content"
             android:text="@string/str_butcircle"
             android:textAppearance="?android:textAppearanceLarge"
-            android:layout_marginRight="10dp"/>
-
-
-
+            android:layout_marginRight="10dp"
+            android:onClick="drawShape"/>
 
     </LinearLayout>
 
